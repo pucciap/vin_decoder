@@ -30,30 +30,48 @@
 # 1G1ZD5ST4LF110124
 # 1G1ZD5ST8LF089763
 
+#sample vins chevy colorado
+# 1GCGSCEN9L1191222
+# 1GCGSCEN4L1188664
+# 1GCGTCEN9K1179647
+
+
 # user inputs vin number to get Year, Make , Model, Trim , Drivetrain, Engine
 
 vin_number = list(input("Vin #: "))
 
 # Dictionaries For Vin Decoder
 
-# Dictionary for Country of Origin, vin decoder 1st digit
+# Dictionary for Country of Origin / Digit # 1
 
 country_of_origin = {
     "1": "USA",
 }
 
-# Dictionary for manufacturer, vin decoder 2nd digit
+# Dictionary for manufacturer / Digit # 2
 
 manufacturer = {
     "G": "General Motors Corp. 1995-2023",
 }
 
-# Dictionary for engine digit 8
+# Dictionary for Body Type / Digit # 4
+
+body_type_dict = {
+    "G": "Crew Cab",
+    "H": "Extended Cab",
+    "P": "Crew Cab",
+    "R": "Extended Cab",
+}
+
+def get_vehicle_body_type(vin_number):
+    return body_type_dict[vin_number[3]]
+
+# Dictionary for engine  / Digit # 8
 
 engine_dict = {
     "V": "1.5L I4 DI DOHC T/C", "X": "2.0L I4 DI DOHC T/C", "6": "6.2L V8 DI OHV S/C""", "7": "6.2L V8 DI OHV",
     "S": "3.6L V6 DI DOHC", "0": "65kw", "3": "3.6L V6 SIDI DOHC VVT Flex", "T": "1.5L I4 DI DOHC T/C",
-    "U": "1.8L I4 SIDI DOHC Hybrid",
+    "U": "1.8L I4 SIDI DOHC Hybrid", "1": "2.8L I4 DI DOHC TDsl", "A": "2.5L I4 DI DOHC, Flex", "N": "3.6L V6 DI DOHC",
 }
 
 engine_key = engine_dict.keys()
@@ -64,7 +82,7 @@ def get_engine_from_vin(vin_number):
     return engine_dict[vin_number[7]]
 
 
-# Dictionary for model year , vin decoder digit #10
+# Dictionary for model year  / Digit #10
 
 model_year_dict = {
     "A": "2010", "B": "2011", "C": "2012", "D": "2013", "E": "2014", "F": "2015", "G": "2016", "H": "2017", "J": "2018",
@@ -79,10 +97,10 @@ def get_model_year_from_vin(vin_number):
     return model_year_dict[vin_number[9]]
 
 
-# Dictionary for Vehicle Make
+# Dictionary for Vehicle Make /  Digit #3
 
 vehicle_make_dict = {
-    "N": "Chevrolet", "1": "Chevrolet",
+    "N": "Chevrolet", "1": "Chevrolet", "C": "Chevrolet", "B": "Chevrolet",
 }
 
 vehicle_make_key = vehicle_make_dict.keys()
@@ -107,7 +125,9 @@ trim_level_dict = {
     "1X": "Impala LS 2FL", "1Y": "Impala LS", "1Z": "Impala 1LT", "ZA": "Malibu L", "ZB": "Malibu LS", "ZC": "Malib LS Fleet",
     "ZD": "Malibu LT", "ZE": "Malibu Premier", "ZF": "Malibu Hybrid", "ZG": "Malibu RS", "B8": "Blazer Export", "BA": "L Blazer FWD",
     "BB": "1LT Blazer FWD", "BC": "2LT Blazer FWD", "BD": "3LT Blazer FWD", "BE": "RS Blazer FWD", "BF": "Premier Blazer FWD",
-    "BH": "2LT Blazer AWD", "BJ": "3LT Blazer AWD", "BK": "RS Blazer AWD", "BL": "Premier Blazer AWD",
+    "BH": "2LT Blazer AWD", "BJ": "3LT Blazer AWD", "BK": "RS Blazer AWD", "BL": "Premier Blazer AWD","SA": "Colorado Base 2WD",
+    "SB": "Colorado W/T 2WD,", "SC": "Colorado LT 2WD", "SD": "Colorado Z71 2WD", "TB": "Colorado W/T 4WD", "TC": "Colorado LT 4WD",
+    "TD": "Colorado Z71 4WD", "TE": "Colorado ZR2 4WD",
 }
 
 trim_level_key = trim_level_dict.keys()
@@ -140,11 +160,14 @@ make = get_vehicle_make_from_vin(vin_number)
 # assigning a variable for user view vehicle trim level
 trim = get_digit_five_six_trim_level_from_vin(vin_number) or get_digit_four_five_trim_level_from_vin(vin_number)
 
+# assigning a variable for user view body types
+body_type = get_vehicle_body_type(vin_number)
+
 # assigning a variable for user view vehicle engine
 engine = get_engine_from_vin(vin_number)
 
 # assigning a variable for final user view Vehicle Year, Make, Model, Trim
-final_user_view = f"{year} {make} {trim} {engine}"
+final_user_view = f"{year} {make} {trim} {body_type} {engine}"
 
 print(final_user_view)
 
