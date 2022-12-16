@@ -5,30 +5,30 @@
 
 # sample vins camaro
 # 1G1FF1R73L
-# 1G1FC1RS2L0140222
-# 1G1FE1R73L0107705
-# 1G1FK1R67K0129334
+# 1G1FC1RS2L
+# 1G1FE1R73L
+# 1G1FK1R67K
 
 # sample vins bolt
-# 1G1FY6S09L4105175
-# 1G1FY6S03L4144621
-# 1G1FY6S07L4136912
-# 1G1FY6S00K4126849
-# 1G1FY6S05K4132081
+# 1G1FY6S09L
+# 1G1FY6S03L
+# 1G1FY6S07L
+# 1G1FY6S00K
+# 1G1FY6S05K
 
 # sample vins chevy impala
-# 1G11Z5S3XLU101499
-# 1G11Z5S31LU112035
-# 2G11Z5S30L9101282
-# 1G11Z5S34LU112224
+# 1G11Z5S3XL
+# 1G11Z5S31L
+# 2G11Z5S30L
+# 1G11Z5S34L
 
 # sample vins chevy malibu
-# 1G1ZD5ST7JF125861
-# 1G1ZB5ST5JF293987
-# 1G1ZD5ST7JF125861
-# 1G1ZD5ST8LF101412
-# 1G1ZD5ST4LF110124
-# 1G1ZD5ST8LF089763
+# 1G1ZD5ST7J
+# 1G1ZB5ST5J
+# 1G1ZD5ST7J
+# 1G1ZD5ST8L
+# 1G1ZD5ST4L
+# 1G1ZD5ST8L
 
 # sample vins chevy colorado
 # 1GCGSCEN9L1191222
@@ -53,28 +53,6 @@ country_of_origin = {
 manufacturer = {
     "G": "General Motors Corp. 1995-2023",
 }
-
-# Dictionary for Body Type / Digit # 4
-
-body_type_dict = {
-    "G": "Crew Cab", "H": "Extended Cab", "P": "Crew Cab",
-    "R": "Extended Cab", "1": "2D Coupe", "3": "2D Convertible",
-}
-
-body_type_key = body_type_dict.keys()
-body_type_value = body_type_dict.values()
-
-def get_vehicle_body_type_digit_three(vin_number):
-    for body_type_key, body_type_value in body_type_dict.items():
-        if body_type_key == vin_number[3]:
-            return body_type_value
-def get_vehicle_body_type_digit_six(vin_number):
-    for body_type_key, body_type_value in body_type_dict.items():
-        if body_type_key == vin_number[5]:
-            return body_type_value
-
-#def get_vehicle_body_type(vin_number):
-        #return body_type_dict[vin_number[7]]
 
 # Dictionary for engine  / Digit # 8
 
@@ -170,6 +148,28 @@ def get_digit_five_six_trim_level_from_vin(vin_number):
             return trim_level_value
 
 
+# Dictionary for Body Type / Digit # 4
+
+body_type_dict = {
+    "G": "Crew Cab", "H": "Extended Cab", "P": "Crew Cab",
+    "R": "Extended Cab", "1": "2D Coupe", "3": "2D Convertible", "5": "4D Sedan"
+}
+
+body_type_key = body_type_dict.keys()
+body_type_value = body_type_dict.values()
+
+
+def get_vehicle_body_type_digit_three():
+    for body_type_key, body_type_value in body_type_dict.items():
+        if body_type_key == vin_number[3]:
+            return body_type_value
+
+def get_vehicle_body_type_digit_six(vin_number):
+    for body_type_key, body_type_value in body_type_dict.items():
+        if body_type_key == vin_number[5]:
+            return body_type_value
+
+
 # assigning a variable for the user view vehicle year
 year = get_model_year_from_vin(vin_number)
 
@@ -180,7 +180,7 @@ make = get_vehicle_make_from_vin(vin_number)
 trim = get_digit_five_six_trim_level_from_vin(vin_number) or get_digit_four_five_trim_level_from_vin(vin_number)
 
 # assigning a variable for user view body types
-body_type = get_vehicle_body_type_digit_three(vin_number) or get_vehicle_body_type_digit_six(vin_number)
+body_type = get_vehicle_body_type_digit_three() or get_vehicle_body_type_digit_six(vin_number)
 # assigning a variable for user view vehicle engine
 engine = get_engine_from_vin(vin_number)
 
